@@ -1,0 +1,6 @@
+User
+1. Password needs to be hashed
+2. Updating user by id which is not present gives a success message
+
+Authorisation
+1. Login users
