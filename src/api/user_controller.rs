@@ -112,5 +112,5 @@ pub async fn delete(
 // pub async fn index() -> Result<HttpResponse, Error> {
 //     Ok(HttpResponse::Ok()
 //         .content_type("text/html; charset=utf-8")
-//         .body(include_str!("../../static/index.html")))
+//         .body(include_str!("../../static/register.html")))
 // }

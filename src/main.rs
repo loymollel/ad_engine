@@ -2,6 +2,8 @@ extern crate diesel;
 extern crate dotenv;
 
 use actix_web::{middleware, web, App, HttpServer};
+// use actix_web_httpauth::{middleware::HttpAuthentication};
+
 use diesel::{
     prelude::*,
     r2d2::{self, ConnectionManager}
@@ -37,6 +39,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .app_data(web::Data::new(pool.clone()))
+            // .wrap(HttpAuthentication::bearer(config::auth::token_validator))
             .wrap(middleware::Logger::default())
             .configure(config::app::config_services)
     })
