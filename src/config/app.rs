@@ -12,7 +12,6 @@ pub fn config_services(cfg: &mut web::ServiceConfig){
                   .wrap(HttpAuthentication::bearer(auth::bearer_token_validator))
                   .service(
                     web::resource("")
-                        .route(web::post().to(user_controller::insert))
                         .route(web::get().to(user_controller::find_all))
                     // .route(web::get().to(user_controller::index))
                   )
@@ -24,24 +23,18 @@ pub fn config_services(cfg: &mut web::ServiceConfig){
                   )
           )
           .service(
-              web::scope("/home")
-                  .service(
-                      web::resource("")
-                      .route(web::get().to(auth_controller::home))
-                  )
-          )
-          .service(
               web::scope("/register")
                   .service(
                       web::resource("")
-                          .route(web::get().to(auth_controller::register))
+                          .route(web::get().to(auth_controller::register_page))
+                          .route(web::post().to(auth_controller::register))
                   )
           )
           .service(
               web::scope("/login")
-                  // .wrap(HttpAuthentication::basic(auth::basic_token_validator))
                   .service(
                       web::resource("")
+                          .route(web::get().to(auth_controller::login_page))
                           .route(web::post().to(auth_controller::login))
                   )
           )

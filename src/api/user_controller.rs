@@ -13,24 +13,6 @@ use crate::{
 type DbPool = r2d2::Pool<ConnectionManager<PgConnection>>;
 
 
-// POST api/user
-pub async fn insert(
-    params: web::Form<UserForm>,
-    pool: web::Data<DbPool>,
-) -> Result<HttpResponse, Error> {
-
-    web::block(move || {
-        let mut conn = pool.get()?;
-        user_service::insert(params, &mut conn)
-    }).await?
-        .map_err(actix_web::error::ErrorInternalServerError)?;
-
-    Ok(HttpResponse::Ok()
-        .content_type("text/plain")
-        .body(format!("User was added successfully!")))
-}
-
-
 // GET api/user
 pub async fn find_all(
     pool: web::Data<DbPool>
@@ -107,10 +89,3 @@ pub async fn delete(
         .content_type("text/plain")
         .body(format!("User was deleted successfully!")))
 }
-
-
-// pub async fn index() -> Result<HttpResponse, Error> {
-//     Ok(HttpResponse::Ok()
-//         .content_type("text/html; charset=utf-8")
-//         .body(include_str!("../../static/register.html")))
-// }
